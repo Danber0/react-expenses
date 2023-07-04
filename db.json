@@ -1,0 +1,68 @@
+{
+  "category": [
+    {
+      "name": "Other",
+      "id": "0"
+    },
+    {
+      "name": "Food",
+      "id": "1"
+    },
+    {
+      "name": "Transport",
+      "id": "2"
+    },
+    {
+      "name": "Car",
+      "id": "3"
+    },
+    {
+      "name": "Shopping",
+      "id": "4"
+    },
+    {
+      "name": "Health",
+      "id": "5"
+    },
+    {
+      "name": "Electronics",
+      "id": "6"
+    },
+    {
+      "name": "Bills",
+      "id": "7"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "1",
+      "name": "Bills",
+      "category": [
+        "House"
+      ],
+      "summary": 323,
+      "date": "2022-01-01"
+    },
+    {
+      "name": "Danber",
+      "category": [
+        "Food",
+        "Transport",
+        "Car"
+      ],
+      "date": "2023-07-01T19:09:09.319Z",
+      "summary": 212,
+      "id": "0jlmPYl"
+    }
+  ],
+  "currency": [
+    {
+      "label": "Рубль",
+      "value": "RUB"
+    },
+    {
+      "label": "Доллар",
+      "value": "USD"
+    }
+  ]
+}

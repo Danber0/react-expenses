@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-color: #fafafa;
+  --background-color--header: #ffffff;
+  --background-color--sidebar: #ffffff;
+  --background-color--block: #ffffff;
+  --color-text-primary: #1c1c1c;
+}
+
+body {
+  background: var(--background-color);
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: var(--background-color--header);
+}
+
+.ant-btn-primary {
+  background-color: #1677ff;
+}
