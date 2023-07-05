@@ -1,7 +1,7 @@
 import React from "react";
 import { Nunito } from "next/font/google";
 
-import Header from "@/components/Antd/Header";
+import Header from "@/components/Header";
 
 import { Providers } from "@/store/redux/provider";
 

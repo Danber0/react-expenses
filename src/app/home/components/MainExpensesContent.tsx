@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { IFormValues } from "@/app/types";
+import { IFormValues } from "@/app/home/types";
 import { ExpensesType, LabelAndValue } from "@/types";
 
 import { useAppDispatch } from "@/hooks";
@@ -14,9 +14,9 @@ import {
 import { axiosInstance } from "@/utils";
 
 import Form from "@/components/Antd/Form/Form";
-import ExpensesModal from "@/app/components/ExpensesModal";
-import TopExpensesActions from "@/app/components/TopExpensesActions";
-import TableExpenses from "@/app/components/TableExpenses";
+import ExpensesModal from "@/app/home/components/ExpensesModal";
+import TopExpensesActions from "@/app/home/components/TopExpensesActions";
+import TableExpenses from "@/app/home/components/TableExpenses";
 
 interface MainExpensesContentProps {
   expensesData: Array<ExpensesType>;
@@ -30,6 +30,7 @@ const MainExpensesContent = ({
   categoryData,
 }: MainExpensesContentProps) => {
   const [form] = Form.useForm<IFormValues>();
+  const [search, setSearch] = useState("");
   const [visibleModal, setVisibleModal] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -68,9 +69,11 @@ const MainExpensesContent = ({
       />
       <TopExpensesActions
         setVisibleModal={setVisibleModal}
+        setSearch={setSearch}
+        search={search}
         currencyData={currencyData}
       />
-      <TableExpenses handleDeleteRow={handleDeleteRow} />
+      <TableExpenses search={search} handleDeleteRow={handleDeleteRow} />
     </main>
   );
 };

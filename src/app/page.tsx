@@ -1,5 +1,5 @@
 import SideBar from "@/components/SideBar";
-import MainExpensesContent from "@/app/components/MainExpensesContent";
+import MainExpensesContent from "@/app/home/components/MainExpensesContent";
 
 import { ExpensesType } from "@/types";
 

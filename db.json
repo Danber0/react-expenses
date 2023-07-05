@@ -35,24 +35,22 @@
   ],
   "expenses": [
     {
-      "id": "1",
-      "name": "Bills",
+      "name": "PC",
       "category": [
-        "House"
+        "Electronics"
       ],
-      "summary": 323,
-      "date": "2022-01-01"
+      "date": "2023-07-01T16:13:11.751Z",
+      "summary": 3999.99,
+      "id": 1
     },
     {
-      "name": "Danber",
+      "name": "PC - Motherboard",
       "category": [
-        "Food",
-        "Transport",
-        "Car"
+        "Electronics"
       ],
-      "date": "2023-07-01T19:09:09.319Z",
-      "summary": 212,
-      "id": "0jlmPYl"
+      "date": "2023-07-01T16:13:50.153Z",
+      "summary": 11499.99,
+      "id": 2
     }
   ],
   "currency": [

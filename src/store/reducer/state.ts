@@ -2,15 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ExpensesType, LabelAndValue } from "@/types";
 
 interface StateStore {
-  expenses: Array<ExpensesType> | [];
-  category: Array<LabelAndValue> | [];
-  currency: Array<LabelAndValue> | [];
+  expenses: Array<ExpensesType>;
+  category: Array<LabelAndValue>;
+  currentCurrency: LabelAndValue;
+  currencyPrice: number;
+  totalSpend: {
+    initial: number;
+    current: number;
+  };
 }
 
 const initialState: StateStore = {
   expenses: [],
   category: [],
-  currency: [],
+  currentCurrency: {} as LabelAndValue,
+  currencyPrice: 0,
+  totalSpend: {
+    initial: 0,
+    current: 0,
+  },
 } as StateStore;
 
 export const stateSlice = createSlice({
@@ -25,23 +35,23 @@ export const stateSlice = createSlice({
     },
     removeExpenses: (state, action: PayloadAction<string>) => {
       state.expenses = state.expenses.filter(
-        (expenses) => expenses.id !== action.payload
+        (expenses) => expenses.id !== action.payload,
       );
     },
     setCategory: (state, action: PayloadAction<Array<LabelAndValue>>) => {
       state.category = action.payload;
     },
-    addCategory: (
-      state,
-      action: PayloadAction<{ name: string; id: string }>
-    ) => {
-      state.category = [
-        ...state.category,
-        {
-          label: action.payload.name,
-          value: action.payload.id,
-        },
-      ];
+    setCurrency: (state, action: PayloadAction<LabelAndValue>) => {
+      state.currentCurrency = action.payload;
+    },
+    setCurrencyPrice: (state, action: PayloadAction<number>) => {
+      state.currencyPrice = action.payload;
+    },
+    setTotalSpend: (state, action: PayloadAction<number>) => {
+      state.totalSpend.initial = action.payload;
+    },
+    setTotalSpendCurrent: (state, action: PayloadAction<number>) => {
+      state.totalSpend.current = action.payload;
     },
   },
 });
@@ -51,7 +61,10 @@ export const {
   removeExpenses,
   addExpenses,
   setCategory,
-  addCategory,
+  setCurrency,
+  setCurrencyPrice,
+  setTotalSpend,
+  setTotalSpendCurrent,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

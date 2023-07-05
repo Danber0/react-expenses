@@ -4,7 +4,7 @@ import { FormInstance } from "antd";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { setCategory } from "@/store/reducer/state";
 
-import { IFormValues } from "@/app/types";
+import { IFormValues } from "@/app/home/types";
 import { LabelAndValue } from "@/types";
 
 import { axiosInstance } from "@/utils";
