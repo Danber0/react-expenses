@@ -1,4 +1,5 @@
 import React from "react";
+import { Provider } from "react-redux";
 import { Nunito } from "next/font/google";
 
 import Header from "@/components/Header";
@@ -15,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="theme-light">
       <body className={nunito.className}>
         <Providers>
           <Header />

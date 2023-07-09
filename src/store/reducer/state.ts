@@ -6,6 +6,7 @@ interface StateStore {
   category: Array<LabelAndValue>;
   currentCurrency: LabelAndValue;
   currencyPrice: number;
+  theme: "theme-dark" | "theme-light";
   totalSpend: {
     initial: number;
     current: number;
@@ -17,11 +18,12 @@ const initialState: StateStore = {
   category: [],
   currentCurrency: {} as LabelAndValue,
   currencyPrice: 0,
+  theme: "theme-light",
   totalSpend: {
     initial: 0,
     current: 0,
   },
-} as StateStore;
+};
 
 export const stateSlice = createSlice({
   name: "stateSlice",
@@ -53,6 +55,11 @@ export const stateSlice = createSlice({
     setTotalSpendCurrent: (state, action: PayloadAction<number>) => {
       state.totalSpend.current = action.payload;
     },
+    setTheme: (state, action: PayloadAction<"theme-dark" | "theme-light">) => {
+      state.theme = action.payload;
+      document.documentElement.className = action.payload;
+      localStorage.setItem("theme", action.payload);
+    },
   },
 });
 
@@ -65,6 +72,7 @@ export const {
   setCurrencyPrice,
   setTotalSpend,
   setTotalSpendCurrent,
+  setTheme,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
