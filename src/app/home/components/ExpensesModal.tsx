@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { FormInstance } from "antd";
+import { FormInstance, message } from "antd";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { setCategory } from "@/store/reducer/state";
@@ -8,6 +8,7 @@ import { IFormValues } from "@/app/home/types";
 import { LabelAndValue } from "@/types";
 
 import { axiosInstance } from "@/utils/axios";
+import { formatNumber } from "@/utils/func";
 
 import Form from "@/components/Antd/Form/Form";
 import Group from "@/components/Antd/Group";
@@ -45,9 +46,13 @@ const ExpensesModal = ({
     const isCreate = !value?.label && value;
 
     if (isCreate) {
-      return await axiosInstance.post("/category", {
-        name: value.value,
-      });
+      try {
+        await axiosInstance.post("/category", {
+          name: value.value,
+        });
+      } catch (e) {
+        message.error("Error while adding category");
+      }
     }
   };
 
@@ -92,7 +97,11 @@ const ExpensesModal = ({
             name="summary"
             rules={[{ required: true }]}
           >
-            <InputNumber className="w-full" placeholder="Enter amount" />
+            <InputNumber
+              formatter={(value) => formatNumber(Number(value))}
+              className="w-full"
+              placeholder="Enter amount"
+            />
           </FormItem>
         </Group>
         <Group>
@@ -102,7 +111,10 @@ const ExpensesModal = ({
           <Button
             className="w-full"
             type="text"
-            onClick={() => setVisibleModal(false)}
+            onClick={() => {
+              setVisibleModal(false);
+              form.resetFields();
+            }}
           >
             Cancel
           </Button>
