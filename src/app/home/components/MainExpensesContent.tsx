@@ -11,7 +11,7 @@ import {
   setExpenses,
 } from "@/store/reducer/state";
 
-import { axiosInstance } from "@/utils";
+import { axiosInstance } from "@/utils/axios";
 
 import Form from "@/components/Antd/Form/Form";
 import ExpensesModal from "@/app/home/components/ExpensesModal";
@@ -48,7 +48,7 @@ const MainExpensesContent = ({
     const { data } = await axiosInstance.post("/expenses", {
       ...dataForm,
       category: dataForm.category.map(
-        (category) => category.label ?? category.value
+        (category) => category.label ?? category.value,
       ),
     });
 

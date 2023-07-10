@@ -3,7 +3,7 @@ import MainExpensesContent from "@/app/home/components/MainExpensesContent";
 
 import { ExpensesType } from "@/types";
 
-import { axiosInstance } from "@/utils";
+import { axiosInstance } from "@/utils/axios";
 
 async function getExpensesData() {
   const { data } = await axiosInstance.get("/expenses");

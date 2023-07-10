@@ -7,7 +7,7 @@ import { setCategory } from "@/store/reducer/state";
 import { IFormValues } from "@/app/home/types";
 import { LabelAndValue } from "@/types";
 
-import { axiosInstance } from "@/utils";
+import { axiosInstance } from "@/utils/axios";
 
 import Form from "@/components/Antd/Form/Form";
 import Group from "@/components/Antd/Group";

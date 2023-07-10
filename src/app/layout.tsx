@@ -1,10 +1,9 @@
 import React from "react";
-import { Provider } from "react-redux";
 import { Nunito } from "next/font/google";
 
-import Header from "@/components/Header";
-
 import { Providers } from "@/store/redux/provider";
+
+import Header from "@/components/Header";
 
 import "./globals.css";
 

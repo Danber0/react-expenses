@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { Popconfirm, Tag, Tooltip } from "antd";
+import { message, Popconfirm, Tag, Tooltip } from "antd";
 import Image from "next/image";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
@@ -10,7 +10,8 @@ import {
 } from "@/store/reducer/state";
 import { ExpensesType } from "@/types";
 
-import { axiosInstance } from "@/utils";
+import { axiosInstance } from "@/utils/axios";
+import { formatNumber } from "@/utils/func";
 
 import Table from "@/components/Antd/Table";
 
@@ -44,9 +45,11 @@ const columns = (
     key: "summary",
     render: (summary: number) => (
       <Tooltip title={String(summary)}>
-        <span>
-          {`${(summary / currencyPrice).toFixed(2)} ${currentCurrency}`}
-        </span>
+        <span>{`${
+          currencyPrice
+            ? formatNumber(summary / currencyPrice)
+            : formatNumber(summary)
+        } ${currencyPrice ? currentCurrency : "RUB"}`}</span>
       </Tooltip>
     ),
   },
@@ -101,13 +104,21 @@ const TableExpenses = ({ handleDeleteRow, search }: TableExpensesProps) => {
     (async () => {
       const summary = expenses.reduce((total, exp) => total + exp.summary, 0);
 
-      const { data } = await axiosInstance.get(
-        `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currentCurrency.value?.toLowerCase()}/rub.json`,
-      );
+      try {
+        const { data } = await axiosInstance.get(
+          `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currentCurrency.value?.toLowerCase()}/rub.json`,
+        );
 
-      dispatch(setCurrencyPrice(data.rub));
-      dispatch(setTotalSpend(summary));
-      dispatch(setTotalSpendCurrent(summary / data.rub));
+        dispatch(setCurrencyPrice(data.rub));
+        dispatch(setTotalSpend(summary));
+        dispatch(setTotalSpendCurrent(summary / data.rub));
+      } catch (error) {
+        dispatch(setCurrencyPrice(0));
+        dispatch(setTotalSpend(summary));
+        if (currentCurrency.value !== "RUB") {
+          message.error("Error while changing currency");
+        }
+      }
     })();
   }, [currentCurrency.value, expenses, dispatch]);
 
@@ -117,9 +128,11 @@ const TableExpenses = ({ handleDeleteRow, search }: TableExpensesProps) => {
       pagination={false}
       footer={() => (
         <Tooltip title={totalSpend.initial}>
-          {`Total expenses is ${totalSpend.current.toFixed(2)} ${
-            currentCurrency.value
-          }`}
+          {`Total expenses is ${
+            totalSpend.current
+              ? formatNumber(totalSpend.current)
+              : formatNumber(totalSpend.initial)
+          } ${currencyPrice ? currentCurrency.value : "RUB"}`}
         </Tooltip>
       )}
       dataSource={expenses.filter((expenses) =>
