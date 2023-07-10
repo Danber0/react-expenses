@@ -7,4 +7,6 @@ const Select = ({ ...rest }: SelectProps) => {
   return <AntSelect {...rest} />;
 };
 
+Select.Option = AntSelect.Option;
+
 export default Select;

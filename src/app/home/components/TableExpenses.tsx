@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { message, Popconfirm, Tag, Tooltip } from "antd";
-import Image from "next/image";
+
+import Edit from "public/edit.svg";
+import Delete from "public/delete.svg";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
@@ -62,15 +64,7 @@ const columns = (
   {
     dataIndex: "edit",
     key: "edit",
-    render: () => (
-      <Image
-        className="cursor-pointer"
-        alt="edit"
-        src="./edit.svg"
-        width={25}
-        height={25}
-      />
-    ),
+    render: () => <Edit className="theme-svg cursor-pointer" />,
   },
   {
     dataIndex: "remove",
@@ -83,7 +77,7 @@ const columns = (
         description="Are you sure to delete this item?"
         onConfirm={() => handleDeleteRow(options.id)}
       >
-        <Image alt="delete" src="./delete.svg" width={25} height={25} />
+        <Delete className="theme-svg" />
       </Popconfirm>
     ),
   },

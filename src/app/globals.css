@@ -18,13 +18,18 @@
   --color-text-primary: #ffffff;
 }
 
+.theme-svg path {
+  fill: var(--color-text-primary);
+  stroke: var(--color-text-primary);
+}
+
 body {
   background: var(--background-color);
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   box-sizing: border-box;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 header {

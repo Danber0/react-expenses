@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import { FormInstance, message } from "antd";
 
@@ -8,7 +9,7 @@ import { IFormValues } from "@/app/home/types";
 import { LabelAndValue } from "@/types";
 
 import { axiosInstance } from "@/utils/axios";
-import { formatNumber } from "@/utils/func";
+import { formatNumber, transformElements } from "@/utils/func";
 
 import Form from "@/components/Antd/Form/Form";
 import Group from "@/components/Antd/Group";
@@ -41,6 +42,21 @@ const ExpensesModal = ({
   useEffect(() => {
     dispatch(setCategory(categoryData));
   }, []);
+
+  useEffect(() => {
+    if (visibleModal) {
+      const getNewCategory = async () => {
+        try {
+          const { data } = await axiosInstance.get("/category");
+          dispatch(setCategory(transformElements(data)));
+        } catch (e) {
+          message.error("Error while adding category");
+        }
+      };
+
+      void getNewCategory();
+    }
+  }, [visibleModal]);
 
   const handleChange = async (value: LabelAndValue) => {
     const isCreate = !value?.label && value;
