@@ -10,7 +10,7 @@ import {
   setTotalSpend,
   setTotalSpendCurrent,
 } from "@/store/reducer/state";
-import { ExpensesType } from "@/types";
+import { ExpensesType, LabelAndValue } from "@/types";
 
 import { axiosInstance } from "@/utils/axios";
 import { formatNumber } from "@/utils/func";
@@ -18,7 +18,8 @@ import { formatNumber } from "@/utils/func";
 import Table from "@/components/Antd/Table";
 
 const columns = (
-  handleDeleteRow: (id: string) => void,
+  handleDeleteRow: (id: number) => void,
+  handleOpenModal: (id: number) => void,
   currencyPrice: number,
   currentCurrency: string,
 ) => [
@@ -31,13 +32,17 @@ const columns = (
     title: "Category",
     dataIndex: "category",
     key: "category",
-    render: (categories: Array<string>) => (
+    render: (categories: Array<LabelAndValue>) => (
       <Fragment>
-        {categories.map((category) => (
-          <Tag key={category} color="green">
-            {category}
-          </Tag>
-        ))}
+        {categories.map((category) =>
+          category ? (
+            <Tag key={category.value} color="green">
+              {category.label}
+            </Tag>
+          ) : (
+            ""
+          ),
+        )}
       </Fragment>
     ),
   },
@@ -64,7 +69,12 @@ const columns = (
   {
     dataIndex: "edit",
     key: "edit",
-    render: () => <Edit className="theme-svg cursor-pointer" />,
+    render: (text: string, options: ExpensesType) => (
+      <Edit
+        className="theme-svg cursor-pointer"
+        onClick={() => handleOpenModal(options.id)}
+      />
+    ),
   },
   {
     dataIndex: "remove",
@@ -84,11 +94,16 @@ const columns = (
 ];
 
 interface TableExpensesProps {
-  handleDeleteRow: (id: string) => void;
+  handleDeleteRow: (id: number) => void;
+  handleOpenModal: (id?: number) => void;
   search: string;
 }
 
-const TableExpenses = ({ handleDeleteRow, search }: TableExpensesProps) => {
+const TableExpenses = ({
+  handleDeleteRow,
+  handleOpenModal,
+  search,
+}: TableExpensesProps) => {
   const dispatch = useAppDispatch();
 
   const { expenses, currentCurrency, currencyPrice, totalSpend } =
@@ -132,7 +147,12 @@ const TableExpenses = ({ handleDeleteRow, search }: TableExpensesProps) => {
       dataSource={expenses.filter((expenses) =>
         expenses.name.toLowerCase().includes(search.toLowerCase()),
       )}
-      columns={columns(handleDeleteRow, currencyPrice, currentCurrency.value)}
+      columns={columns(
+        handleDeleteRow,
+        handleOpenModal,
+        currencyPrice,
+        currentCurrency.value,
+      )}
     />
   );
 };

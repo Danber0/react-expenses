@@ -16,14 +16,14 @@ import Select from "@/components/Antd/Select";
 import Button from "@/components/Antd/Button";
 
 interface TopExpensesActionsProps {
-  setVisibleModal: React.Dispatch<boolean>;
+  handleOpenModal: (id?: number) => void;
   setSearch: React.Dispatch<string>;
   search: string;
   currencyData: Array<LabelAndValue>;
 }
 
 const TopExpensesActions = ({
-  setVisibleModal,
+  handleOpenModal,
   currencyData,
   setSearch,
   search,
@@ -61,7 +61,7 @@ const TopExpensesActions = ({
         <Button
           className="shadow-lg"
           size="large"
-          onClick={() => setVisibleModal(true)}
+          onClick={() => handleOpenModal()}
           icon={<Plus className="theme-svg" />}
         >
           Add new row

@@ -1,65 +1,99 @@
 {
   "category": [
     {
-      "name": "Other",
-      "id": "0"
+      "label": "Other",
+      "value": "0"
     },
     {
-      "name": "Food",
-      "id": "1"
+      "label": "Food",
+      "value": "1"
     },
     {
-      "name": "Transport",
-      "id": "2"
+      "label": "Transport",
+      "value": "2"
     },
     {
-      "name": "Car",
-      "id": "3"
+      "label": "Car",
+      "value": "3"
     },
     {
-      "name": "Shopping",
-      "id": "4"
+      "label": "Shopping",
+      "value": "4"
     },
     {
-      "name": "Health",
-      "id": "5"
+      "label": "Health",
+      "value": "5"
     },
     {
-      "name": "Electronics",
-      "id": "6"
+      "label": "Electronics",
+      "value": "6"
     },
     {
-      "name": "Bills",
-      "id": "7"
+      "label": "Bills",
+      "value": "7"
     }
   ],
   "expenses": [
     {
-      "name": "PC",
+      "name": "PC - Cooler",
       "category": [
-        "Electronics"
+        {
+          "label": "Electronics",
+          "value": "6",
+          "key": "6"
+        }
       ],
-      "date": "2023-07-01T16:13:11.751Z",
-      "summary": 3999.99,
+      "date": "2023-08-03T23:27:30.487Z",
+      "summary": 1023,
       "id": 1
     },
     {
-      "name": "PC - Motherboard",
+      "name": "PC - Mother",
       "category": [
-        "Electronics"
+        {
+          "label": "Electronics",
+          "value": "6",
+          "key": "6"
+        }
       ],
-      "date": "2023-07-01T16:13:50.153Z",
-      "summary": 11499.99,
+      "date": "2023-08-04T23:12:39.696Z",
+      "summary": 12333,
       "id": 2
+    },
+    {
+      "name": "PC - Disk",
+      "category": [
+        {
+          "label": "Electronics",
+          "value": "6",
+          "key": "6"
+        }
+      ],
+      "date": "2023-08-03T23:56:53.121Z",
+      "summary": 1233,
+      "id": 4
+    },
+    {
+      "name": "PC - Memory",
+      "category": [
+        {
+          "label": "Electronics",
+          "value": "6",
+          "key": "6"
+        }
+      ],
+      "date": "2009-02-13T03:53:43.632Z",
+      "summary": 10000,
+      "id": 5
     }
   ],
   "currency": [
     {
-      "label": "Рубль",
+      "label": "RUB",
       "value": "RUB"
     },
     {
-      "label": "Доллар",
+      "label": "USD",
       "value": "USD"
     }
   ]

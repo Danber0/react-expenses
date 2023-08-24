@@ -30,12 +30,20 @@ export const stateSlice = createSlice({
   initialState,
   reducers: {
     setExpenses: (state, action: PayloadAction<Array<ExpensesType>>) => {
-      state.expenses = action.payload;
+      state.expenses = action.payload.map((expense) => ({
+        ...expense,
+        key: expense.id,
+      }));
     },
     addExpenses: (state, action: PayloadAction<ExpensesType>) => {
       state.expenses = [...state.expenses, action.payload];
     },
-    removeExpenses: (state, action: PayloadAction<string>) => {
+    editExpenses: (state, action: PayloadAction<ExpensesType>) => {
+      state.expenses = state.expenses.map((expense) =>
+        expense.id === action.payload.id ? action.payload : expense,
+      );
+    },
+    removeExpenses: (state, action: PayloadAction<number>) => {
       state.expenses = state.expenses.filter(
         (expenses) => expenses.id !== action.payload,
       );
@@ -67,6 +75,7 @@ export const {
   setExpenses,
   removeExpenses,
   addExpenses,
+  editExpenses,
   setCategory,
   setCurrency,
   setCurrencyPrice,

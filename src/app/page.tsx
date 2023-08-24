@@ -1,12 +1,12 @@
 import SideBar from "@/components/SideBar";
 import MainExpensesContent from "@/app/home/components/MainExpensesContent";
 
-import { ExpensesType } from "@/types";
+import { ExpensesType, LabelAndValue } from "@/types";
 
 import { axiosInstance } from "@/utils/axios";
 
 async function getExpensesData() {
-  const { data } = await axiosInstance.get("/expenses");
+  const { data } = await axiosInstance.get<Array<ExpensesType>>("/expenses");
 
   if (!data) {
     throw new Error("Failed to fetch data");
@@ -26,16 +26,13 @@ async function getCurrencyData() {
 }
 
 async function getCategoryData() {
-  const { data } = await axiosInstance.get<Array<ExpensesType>>("/category");
+  const { data } = await axiosInstance.get<Array<LabelAndValue>>("/category");
 
   if (!data) {
     throw new Error("Failed to fetch data");
   }
 
-  return data?.map((category) => ({
-    label: category.name,
-    value: category.id,
-  }));
+  return data;
 }
 
 export default async function Home() {

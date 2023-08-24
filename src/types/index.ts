@@ -1,12 +1,14 @@
+import { Dayjs } from "dayjs";
+
 export interface LabelAndValue {
   label: string;
   value: string;
 }
 
 export interface ExpensesType {
-  id: string;
+  id: number;
   name: string;
-  category: Array<LabelAndValue> | Array<string>;
+  category: Array<LabelAndValue>;
   summary: number;
-  date: string;
+  date: string | Dayjs;
 }

@@ -9,7 +9,7 @@ import { IFormValues } from "@/app/home/types";
 import { LabelAndValue } from "@/types";
 
 import { axiosInstance } from "@/utils/axios";
-import { formatNumber, transformElements } from "@/utils/func";
+import { formatNumber } from "@/utils/func";
 
 import Form from "@/components/Antd/Form/Form";
 import Group from "@/components/Antd/Group";
@@ -26,7 +26,8 @@ interface PropsExpensesModal {
   form: FormInstance<IFormValues>;
   visibleModal: boolean;
   handleAddRow: (values: IFormValues) => void;
-  categoryData: Array<LabelAndValue>;
+  handleEditRow: (values: IFormValues) => void;
+  defaultValues: IFormValues | null;
 }
 
 const ExpensesModal = ({
@@ -34,21 +35,18 @@ const ExpensesModal = ({
   form,
   visibleModal,
   handleAddRow,
-  categoryData,
+  handleEditRow,
+  defaultValues,
 }: PropsExpensesModal) => {
   const dispatch = useAppDispatch();
   const { category } = useAppSelector(({ state }) => state);
-
-  useEffect(() => {
-    dispatch(setCategory(categoryData));
-  }, []);
 
   useEffect(() => {
     if (visibleModal) {
       const getNewCategory = async () => {
         try {
           const { data } = await axiosInstance.get("/category");
-          dispatch(setCategory(transformElements(data)));
+          dispatch(setCategory(data));
         } catch (e) {
           message.error("Error while adding category");
         }
@@ -57,6 +55,12 @@ const ExpensesModal = ({
       void getNewCategory();
     }
   }, [visibleModal]);
+
+  useEffect(() => {
+    if (defaultValues) {
+      form.setFieldsValue(defaultValues);
+    }
+  }, [defaultValues]);
 
   const handleChange = async (value: LabelAndValue) => {
     const isCreate = !value?.label && value;
@@ -82,7 +86,11 @@ const ExpensesModal = ({
       }}
       footer={false}
     >
-      <Form form={form} layout="vertical" onFinish={handleAddRow}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={defaultValues?.name ? handleEditRow : handleAddRow}
+      >
         <FormItem label="Name" name="name" rules={[{ required: true }]}>
           <Input placeholder="Enter name" allowClear value={12334} />
         </FormItem>

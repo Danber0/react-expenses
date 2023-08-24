@@ -1,8 +1,11 @@
+import { Dayjs } from "dayjs";
+
 import { LabelAndValue } from "@/types";
 
 export interface IFormValues {
+  id?: number;
   name: string;
   category: Array<LabelAndValue>;
-  summary: string;
-  date: string;
+  summary: number;
+  date: string | Dayjs;
 }
