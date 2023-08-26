@@ -68,7 +68,7 @@ const ExpensesModal = ({
     if (isCreate) {
       try {
         await axiosInstance.post("/category", {
-          name: value.value,
+          label: value.value,
         });
       } catch (e) {
         message.error("Error while adding category");
@@ -92,7 +92,7 @@ const ExpensesModal = ({
         onFinish={defaultValues?.name ? handleEditRow : handleAddRow}
       >
         <FormItem label="Name" name="name" rules={[{ required: true }]}>
-          <Input placeholder="Enter name" allowClear value={12334} />
+          <Input placeholder="Enter name" allowClear />
         </FormItem>
         <FormItem label="Category" name="category" rules={[{ required: true }]}>
           <Select

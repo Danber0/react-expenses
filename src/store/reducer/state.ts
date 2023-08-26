@@ -1,7 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ExpensesType, LabelAndValue } from "@/types";
 
+interface UserInfo {
+  isAuth: boolean;
+  name: string;
+  email: string;
+}
+
 interface StateStore {
+  user: UserInfo;
   expenses: Array<ExpensesType>;
   category: Array<LabelAndValue>;
   currentCurrency: LabelAndValue;
@@ -14,6 +21,7 @@ interface StateStore {
 }
 
 const initialState: StateStore = {
+  user: {} as UserInfo,
   expenses: [],
   category: [],
   currentCurrency: {} as LabelAndValue,
@@ -68,6 +76,12 @@ export const stateSlice = createSlice({
       document.documentElement.className = action.payload;
       localStorage.setItem("theme", action.payload);
     },
+    setUserInfo: (state, action: PayloadAction<UserInfo>) => {
+      state.user = action.payload;
+    },
+    setIsAuth: (state, action: PayloadAction<boolean>) => {
+      state.user.isAuth = action.payload;
+    },
   },
 });
 
@@ -82,6 +96,8 @@ export const {
   setTotalSpend,
   setTotalSpendCurrent,
   setTheme,
+  setUserInfo,
+  setIsAuth,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

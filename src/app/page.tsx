@@ -48,7 +48,6 @@ export default async function Home() {
       <MainExpensesContent
         expensesData={expensesData}
         currencyData={currencyData}
-        categoryData={categoryData}
       />
     </div>
   );
