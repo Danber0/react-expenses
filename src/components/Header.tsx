@@ -36,8 +36,6 @@ const Header = () => {
       }
     };
 
-    console.log(user.isAuth);
-
     void checkUser();
   }, [user.isAuth]);
 
