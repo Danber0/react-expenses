@@ -8,6 +8,7 @@ import Sort from "public/sort.svg";
 import { LabelAndValue } from "@/types";
 
 import { setCurrency } from "@/store/reducer/state";
+
 import { useAppDispatch } from "@/hooks";
 
 import Input from "@/components/Antd/Input/Input";
@@ -35,7 +36,7 @@ const TopExpensesActions = ({
       <Input
         className="max-w-[200px] shadow-lg"
         size="large"
-        prefix={<Search className="theme-svg" />}
+        prefix={<Search className="theme-svg mr-2" />}
         onChange={(event) => setSearch(event.target.value)}
         value={search}
         placeholder="Search..."

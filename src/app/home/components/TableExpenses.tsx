@@ -4,9 +4,12 @@ import { message, Popconfirm, Tag, Tooltip } from "antd";
 import Edit from "public/edit.svg";
 import Delete from "public/delete.svg";
 
+import { useDebounce } from "@/hooks/useDebounce";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+
 import {
   setCurrencyPrice,
+  setExpenses,
   setTotalSpend,
   setTotalSpendCurrent,
 } from "@/store/reducer/state";
@@ -105,6 +108,7 @@ const TableExpenses = ({
   search,
 }: TableExpensesProps) => {
   const dispatch = useAppDispatch();
+  const debouncedValue = useDebounce(search, 300);
 
   const { expenses, currentCurrency, currencyPrice, totalSpend } =
     useAppSelector(({ state }) => state);
@@ -131,6 +135,22 @@ const TableExpenses = ({
     })();
   }, [currentCurrency.value, expenses, dispatch]);
 
+  useEffect(() => {
+    const searchExpenses = async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          debouncedValue ? `/expenses?name=*${debouncedValue}*` : `/expenses`,
+        );
+
+        dispatch(setExpenses(data));
+      } catch (e) {
+        message.error("Error while searching");
+      }
+    };
+
+    void searchExpenses();
+  }, [debouncedValue]);
+
   return (
     <Table
       className="shadow-[0_0_15px_5px_rgba(0,0,0,0.1)] rounded-2xl mt-6"
@@ -144,9 +164,7 @@ const TableExpenses = ({
           } ${currencyPrice ? currentCurrency.value : "RUB"}`}
         </Tooltip>
       )}
-      dataSource={expenses.filter((expenses) =>
-        expenses.name.toLowerCase().includes(search.toLowerCase()),
-      )}
+      dataSource={expenses}
       columns={columns(
         handleDeleteRow,
         handleOpenModal,
