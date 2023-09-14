@@ -96,7 +96,7 @@ const ExpensesModal = ({
         </FormItem>
         <FormItem label="Category" name="category" rules={[{ required: true }]}>
           <Select
-            mode="tags"
+            mode="multiple"
             options={category}
             onSelect={handleChange}
             className="w-full"
