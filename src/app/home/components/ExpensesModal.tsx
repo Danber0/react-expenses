@@ -117,14 +117,14 @@ const ExpensesModal = ({
           </FormItem>
           <FormItem
             className="w-full"
-            label="Summary"
+            label="Summary in RUB"
             name="summary"
             rules={[{ required: true }]}
           >
             <InputNumber
               formatter={(value) => formatNumber(Number(value))}
               className="w-full"
-              placeholder="Enter amount"
+              placeholder="Enter amount in RUB"
             />
           </FormItem>
         </Group>
