@@ -41,7 +41,7 @@ const SideBar = ({ categoryData }: SideBarProps) => {
   const handleSubmit = async (formData: IFormValues) => {
     try {
       const { data } = await axiosInstance.get(
-        `/expenses?category.0.value=${formData.category}`,
+        `/expenses?category.value=${formData.category}`,
       );
 
       dispatch(setExpenses(data));
